@@ -23,9 +23,10 @@ services:
     ## docker build -t ec-cube --no-cache --pull --build-arg TAG=8.1-apache .
     ## docker tag ec-cube ghcr.io/ec-cube/ec-cube-php:8.1-apache
     image: ${REGISTRY:-ghcr.io}/${IMAGE_NAME:-ec-cube/ec-cube-php}:${TAG:-8.1-apache}
+    restart: always
     ports:
-      - 8080:80
-      - 4430:443
+      - 8888:80
+      - 8443:443
     volumes:
       ### 同期対象からコストの重いフォルダを除外 #####################
       - "var:/var/www/html/var"
@@ -61,6 +62,7 @@ services:
   ### Mailcatcher ##################################
   mailcatcher:
     image: schickling/mailcatcher
+    restart: always
     ports:
       - "1080:1080"
       - "1025:1025"
